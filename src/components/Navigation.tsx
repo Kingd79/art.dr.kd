@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Users, BookOpen, BarChart3, Settings, User } from 'lucide-react';
+import { Activity, Users, BookOpen, BarChart3, Settings, User, MessageCircle, FileText, LogIn, Library } from 'lucide-react';
 import { UserRole } from '../types';
 
 interface NavigationProps {
@@ -8,20 +8,39 @@ interface NavigationProps {
   onPageChange: (page: string) => void;
   onRoleChange: (role: UserRole) => void;
   onProfileClick: () => void;
+  onAuthClick?: () => void;
+  onMessagesClick?: () => void;
+  onSessionNotesClick?: () => void;
+  isAuthenticated?: boolean;
 }
 
-export function Navigation({ currentRole, currentPage, onPageChange, onRoleChange, onProfileClick }: NavigationProps) {
+export function Navigation({ 
+  currentRole, 
+  currentPage, 
+  onPageChange, 
+  onRoleChange, 
+  onProfileClick,
+  onAuthClick,
+  onMessagesClick,
+  onSessionNotesClick,
+  isAuthenticated = true
+}: NavigationProps) {
   const patientPages = [
     { id: 'dashboard', label: 'Dashboard', icon: Activity },
     { id: 'routine', label: 'My Routine', icon: BookOpen },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
     { id: 'library', label: 'Exercise Library', icon: BookOpen },
+    { id: 'resources', label: 'Resources', icon: Library },
+    { id: 'messages', label: 'Messages', icon: MessageCircle, onClick: onMessagesClick },
   ];
 
   const therapistPages = [
     { id: 'therapist-dashboard', label: 'Dashboard', icon: Activity },
     { id: 'patients', label: 'Patients', icon: Users },
     { id: 'library', label: 'Exercise Library', icon: BookOpen },
+    { id: 'resources', label: 'Resources', icon: Library },
+    { id: 'messages', label: 'Messages', icon: MessageCircle, onClick: onMessagesClick },
+    { id: 'session-notes', label: 'Session Notes', icon: FileText, onClick: onSessionNotesClick },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
@@ -70,32 +89,34 @@ export function Navigation({ currentRole, currentPage, onPageChange, onRoleChang
           </div>
         </div>
 
-        <div className="mb-6">
-          <div className="flex bg-gray-100 rounded-lg p-1">
-            <button
-              onClick={() => onRoleChange('patient')}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
-                currentRole === 'patient'
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              <User className="h-4 w-4 inline mr-2" />
-              Patient
-            </button>
-            <button
-              onClick={() => onRoleChange('therapist')}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
-                currentRole === 'therapist'
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              <Activity className="h-4 w-4 inline mr-2" />
-              Therapist
-            </button>
+        {isAuthenticated && (
+          <div className="mb-6">
+            <div className="flex bg-gray-100 rounded-lg p-1">
+              <button
+                onClick={() => onRoleChange('patient')}
+                className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+                  currentRole === 'patient'
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <User className="h-4 w-4 inline mr-2" />
+                Patient
+              </button>
+              <button
+                onClick={() => onRoleChange('therapist')}
+                className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+                  currentRole === 'therapist'
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <Activity className="h-4 w-4 inline mr-2" />
+                Therapist
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         <ul className="space-y-2">
           {pages.map((page) => {
@@ -103,7 +124,7 @@ export function Navigation({ currentRole, currentPage, onPageChange, onRoleChang
             return (
               <li key={page.id}>
                 <button
-                  onClick={() => onPageChange(page.id)}
+                  onClick={() => page.onClick ? page.onClick() : onPageChange(page.id)}
                   className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                     currentPage === page.id
                       ? 'bg-blue-50 text-blue-700 border border-blue-200'
@@ -120,31 +141,41 @@ export function Navigation({ currentRole, currentPage, onPageChange, onRoleChang
       </div>
       
       <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200">
-        <button
-          onClick={onProfileClick}
-          className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
-        >
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
-            {currentUserData.profilePicture ? (
-              <img 
-                src={currentUserData.profilePicture} 
-                alt="Profile" 
-                className="w-full h-full rounded-full object-cover"
-              />
-            ) : (
-              <span className="text-white font-medium text-sm">
-                {currentUserData.name.split(' ').map(n => n[0]).join('')}
-              </span>
-            )}
-          </div>
-          <div className="flex-1 text-left">
-            <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
-              {currentUserData.name}
-            </p>
-            <p className="text-xs text-gray-500 capitalize">{currentRole}</p>
-          </div>
-          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-        </button>
+        {isAuthenticated ? (
+          <button
+            onClick={onProfileClick}
+            className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+              {currentUserData.profilePicture ? (
+                <img 
+                  src={currentUserData.profilePicture} 
+                  alt="Profile" 
+                  className="w-full h-full rounded-full object-cover"
+                />
+              ) : (
+                <span className="text-white font-medium text-sm">
+                  {currentUserData.name.split(' ').map(n => n[0]).join('')}
+                </span>
+              )}
+            </div>
+            <div className="flex-1 text-left">
+              <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                {currentUserData.name}
+              </p>
+              <p className="text-xs text-gray-500 capitalize">{currentRole}</p>
+            </div>
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          </button>
+        ) : (
+          <button
+            onClick={onAuthClick}
+            className="w-full flex items-center justify-center space-x-2 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <LogIn className="h-4 w-4" />
+            <span className="font-medium">Sign In</span>
+          </button>
+        )}
       </div>
     </nav>
   );
