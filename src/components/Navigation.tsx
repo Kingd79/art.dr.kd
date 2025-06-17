@@ -7,9 +7,10 @@ interface NavigationProps {
   currentPage: string;
   onPageChange: (page: string) => void;
   onRoleChange: (role: UserRole) => void;
+  onProfileClick: () => void;
 }
 
-export function Navigation({ currentRole, currentPage, onPageChange, onRoleChange }: NavigationProps) {
+export function Navigation({ currentRole, currentPage, onPageChange, onRoleChange, onProfileClick }: NavigationProps) {
   const patientPages = [
     { id: 'dashboard', label: 'Dashboard', icon: Activity },
     { id: 'routine', label: 'My Routine', icon: BookOpen },
@@ -25,6 +26,36 @@ export function Navigation({ currentRole, currentPage, onPageChange, onRoleChang
   ];
 
   const pages = currentRole === 'patient' ? patientPages : therapistPages;
+
+  // Mock profile data - in a real app, this would come from your user management system
+  const mockProfileData = {
+    patient: {
+      name: 'Sarah Johnson',
+      email: 'sarah.johnson@email.com',
+      profilePicture: '',
+      phone: '+1 (555) 123-4567',
+      address: '123 Main St, Anytown, ST 12345',
+      dateOfBirth: '1990-05-15',
+      emergencyContact: 'John Johnson - (555) 987-6543',
+      medicalHistory: 'Previous ACL surgery in 2019, no other major injuries',
+      currentMedications: 'Ibuprofen 400mg as needed for pain'
+    },
+    therapist: {
+      name: 'Dr. Michael Smith',
+      email: 'dr.smith@artdoctorpt.com',
+      profilePicture: '',
+      phone: '+1 (555) 234-5678',
+      address: '456 Medical Center Dr, Healthcare City, ST 54321',
+      dateOfBirth: '1985-08-22',
+      specialty: 'Orthopedic Physical Therapy',
+      license: 'PT12345',
+      experience: '8',
+      education: 'DPT from University of Health Sciences, Board Certified Orthopedic Clinical Specialist',
+      bio: 'Passionate about helping patients recover from orthopedic injuries and return to their active lifestyles. Specializing in sports medicine and post-surgical rehabilitation.'
+    }
+  };
+
+  const currentUserData = mockProfileData[currentRole];
 
   return (
     <nav className="bg-white shadow-sm border-r border-gray-200 h-screen w-64 fixed left-0 top-0 z-10">
@@ -89,15 +120,31 @@ export function Navigation({ currentRole, currentPage, onPageChange, onRoleChang
       </div>
       
       <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
-          <div>
-            <p className="text-sm font-medium text-gray-900">
-              {currentRole === 'patient' ? 'Sarah Johnson' : 'Dr. Smith'}
+        <button
+          onClick={onProfileClick}
+          className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+        >
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+            {currentUserData.profilePicture ? (
+              <img 
+                src={currentUserData.profilePicture} 
+                alt="Profile" 
+                className="w-full h-full rounded-full object-cover"
+              />
+            ) : (
+              <span className="text-white font-medium text-sm">
+                {currentUserData.name.split(' ').map(n => n[0]).join('')}
+              </span>
+            )}
+          </div>
+          <div className="flex-1 text-left">
+            <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+              {currentUserData.name}
             </p>
             <p className="text-xs text-gray-500 capitalize">{currentRole}</p>
           </div>
-        </div>
+          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+        </button>
       </div>
     </nav>
   );
