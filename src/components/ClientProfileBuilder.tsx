@@ -77,7 +77,7 @@ export function ClientProfileBuilder({ onComplete, userPlan, onUpgradeClick }: C
             <User className="h-8 w-8 text-white" />
             <div>
               <h2 className="text-2xl font-bold text-white">Client Profile Builder</h2>
-              <p className="text-blue-100">Create a detailed profile to generate personalized workouts</p>
+              <p className="text-blue-100">Create detailed profiles to make workouts easier</p>
             </div>
           </div>
         </div>

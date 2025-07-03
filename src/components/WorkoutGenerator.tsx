@@ -70,7 +70,7 @@ export function WorkoutGenerator({ clientProfile, onWorkoutGenerated, userPlan, 
             <Zap className="h-8 w-8 text-white" />
             <div>
               <h2 className="text-2xl font-bold text-white">Workout Generator</h2>
-              <p className="text-green-100">AI-powered personalized workout creation</p>
+              <p className="text-green-100">AI-powered personalized workouts made easier</p>
             </div>
           </div>
         </div>
@@ -232,7 +232,7 @@ export function WorkoutGenerator({ clientProfile, onWorkoutGenerated, userPlan, 
                 <span className="text-blue-800 font-medium">AI is analyzing your client's profile...</span>
               </div>
               <div className="mt-2 text-sm text-blue-600">
-                Creating personalized exercises based on goals, fitness level, and available equipment.
+                Creating personalized exercises to make workouts easier and more effective.
               </div>
             </div>
           )}

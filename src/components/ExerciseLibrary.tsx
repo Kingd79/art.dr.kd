@@ -54,7 +54,7 @@ export function ExerciseLibrary({ userPlan }: ExerciseLibraryProps) {
             <BookOpen className="h-8 w-8 text-white" />
             <div>
               <h2 className="text-2xl font-bold text-white">Exercise Library</h2>
-              <p className="text-indigo-100">Comprehensive database of exercises with instructions and tips</p>
+              <p className="text-indigo-100">Comprehensive database to make workouts easier</p>
             </div>
           </div>
         </div>

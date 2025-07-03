@@ -45,7 +45,7 @@ export function Header({
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Dejimba</h1>
-              <p className="text-sm text-gray-600">Workout Script Generator</p>
+              <p className="text-sm text-gray-600">Workout Made Easier</p>
             </div>
           </div>
 
