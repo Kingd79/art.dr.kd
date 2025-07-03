@@ -56,19 +56,39 @@ function App() {
           />
         );
       case 'generator':
+        // Ensure clientProfile exists before rendering WorkoutGenerator
+        if (!clientProfile) {
+          return (
+            <ClientProfileBuilder 
+              onComplete={handleProfileComplete}
+              userPlan={userPlan}
+              onUpgradeClick={() => setIsPricingModalOpen(true)}
+            />
+          );
+        }
         return (
           <WorkoutGenerator
-            clientProfile={clientProfile!}
+            clientProfile={clientProfile}
             onWorkoutGenerated={handleWorkoutGenerated}
             userPlan={userPlan}
             onUpgradeClick={() => setIsPricingModalOpen(true)}
           />
         );
       case 'script':
+        // Ensure both workoutPlan and clientProfile exist before rendering WorkoutScript
+        if (!workoutPlan || !clientProfile) {
+          return (
+            <ClientProfileBuilder 
+              onComplete={handleProfileComplete}
+              userPlan={userPlan}
+              onUpgradeClick={() => setIsPricingModalOpen(true)}
+            />
+          );
+        }
         return (
           <WorkoutScript
-            workoutPlan={workoutPlan!}
-            clientProfile={clientProfile!}
+            workoutPlan={workoutPlan}
+            clientProfile={clientProfile}
             userPlan={userPlan}
             onUpgradeClick={() => setIsPricingModalOpen(true)}
           />
