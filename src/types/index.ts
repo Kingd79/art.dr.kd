@@ -1,52 +1,58 @@
-export interface Patient {
-  id: string;
+export interface ClientProfile {
   name: string;
-  email: string;
-  injury: string;
+  age: number;
+  gender: 'male' | 'female' | 'other';
+  fitnessLevel: 'beginner' | 'intermediate' | 'advanced';
   goals: string[];
-  preferredExerciseType: string;
-  createdAt: string;
-  lastActiveAt: string;
+  availableEquipment: string[];
+  workoutDuration: number;
+  workoutFrequency: number;
+  injuries: string[];
+  preferences: string[];
 }
 
 export interface Exercise {
   id: string;
   name: string;
-  description: string;
   category: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration: number;
-  sets?: number;
-  reps?: number;
-  instructions: string[];
-  targetMuscles: string[];
+  bodyPart: string[];
   equipment: string[];
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  description: string;
+  instructions: string[];
+  tips: string[];
+  imageUrl?: string;
   videoUrl?: string;
-  animationUrl?: string;
+  musclesWorked: string[];
 }
 
-export interface Routine {
+export interface WorkoutExercise {
+  exercise: Exercise;
+  sets: number;
+  reps: string;
+  weight?: string;
+  rest: string;
+  notes?: string;
+}
+
+export interface WorkoutDay {
+  day: string;
+  focus: string;
+  exercises: WorkoutExercise[];
+  totalDuration: number;
+}
+
+export interface WorkoutPlan {
   id: string;
-  patientId: string;
-  name: string;
-  exercises: Exercise[];
-  duration: number;
-  difficulty: string;
+  clientName: string;
+  planName: string;
+  duration: string;
+  frequency: string;
+  goals: string[];
+  workoutDays: WorkoutDay[];
+  nutritionTips?: string[];
+  progressTracking?: string[];
   createdAt: string;
-  completedSessions: number;
-  totalSessions: number;
 }
 
-export interface ProgressEntry {
-  id: string;
-  patientId: string;
-  routineId: string;
-  date: string;
-  completed: boolean;
-  painLevel: number;
-  notes: string;
-  exercisesCompleted: number;
-  totalExercises: number;
-}
-
-export type UserRole = 'patient' | 'therapist';
+export type UserPlan = 'free' | 'pro' | 'premium';
