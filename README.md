@@ -1,8 +1,8 @@
-# FitCoach Pro - Professional Fitness Coaching Platform
+# FitCoach Pro - Complete Fitness Coaching Platform
 
-A comprehensive fitness coaching platform built with React, TypeScript, and Tailwind CSS. This platform enables gym instructors and fitness coaches to manage clients, create workout plans, upload training videos, and process payments through M-Pesa integration.
+A comprehensive fitness coaching platform built with React, TypeScript, and Node.js, featuring seamless M-Pesa payment integration for the Kenyan market.
 
-## Features
+## 🌟 Features
 
 ### For Clients
 - **User Authentication** - Secure login and registration
@@ -10,166 +10,250 @@ A comprehensive fitness coaching platform built with React, TypeScript, and Tail
 - **Workout Plans** - Access to custom workout plans created by coaches
 - **Video Library** - Browse and watch instructional fitness videos
 - **Progress Tracking** - Monitor fitness journey with detailed analytics
-- **M-Pesa Payments** - Easy and secure payment processing
+- **M-Pesa Payments** - Easy and secure mobile money payments
 - **Mobile Responsive** - Works perfectly on all devices
 
 ### For Coaches
 - **Coach Dashboard** - Comprehensive overview of business metrics
 - **Client Management** - Track client progress and manage relationships
-- **Video Upload** - Upload and organize training videos
+- **Video Upload** - Upload and organize training videos with drag & drop
 - **Workout Plan Creation** - Design custom workout plans for clients
 - **Revenue Tracking** - Monitor earnings and business growth
 - **Session Scheduling** - Manage appointments and sessions
 
-### Technical Features
-- **React 18** with TypeScript for type safety
-- **React Router** for navigation
-- **Tailwind CSS** for beautiful, responsive design
-- **Context API** for state management
-- **React Dropzone** for file uploads
-- **Responsive Design** - Mobile-first approach
-- **Modern UI/UX** - Clean, professional interface
+### Payment Integration
+- **M-Pesa STK Push** - Seamless mobile money payments
+- **Real-time Callbacks** - Instant payment status updates
+- **Multiple Plans** - Basic (KSh 2,500), Premium (KSh 5,000), Elite (KSh 8,500)
+- **Secure Processing** - PCI compliant and SSL encrypted
+- **Transaction Tracking** - Complete payment history and receipts
 
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js (v16 or higher)
 - npm or yarn
-- Git
+- M-Pesa API credentials (for payments)
 
-### Installation
+### 1. Clone and Install
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd fitness-coaching-platform
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-### Demo Credentials
-- **Client Account**: `client@demo.com` / `password`
-- **Coach Account**: `coach@fitcoach.com` / `password`
-
-## Project Structure
-
-```
-src/
-├── components/          # Reusable UI components
-│   ├── Header.tsx
-│   ├── Footer.tsx
-│   └── LoadingSpinner.tsx
-├── pages/              # Page components
-│   ├── HomePage.tsx
-│   ├── LoginPage.tsx
-│   ├── RegisterPage.tsx
-│   ├── DashboardPage.tsx
-│   ├── CoachDashboard.tsx
-│   ├── WorkoutPlansPage.tsx
-│   ├── VideoLibraryPage.tsx
-│   ├── PaymentPage.tsx
-│   └── ProfilePage.tsx
-├── contexts/           # React Context providers
-│   └── AuthContext.tsx
-├── App.tsx            # Main application component
-├── main.tsx           # Application entry point
-└── index.css          # Global styles
-```
-
-## Key Features Implementation
-
-### Authentication System
-- JWT-based authentication (ready for backend integration)
-- Role-based access control (Client/Coach)
-- Protected routes
-- Persistent login state
-
-### Payment Integration
-- M-Pesa payment interface
-- Multiple payment methods support
-- Secure payment processing
-- Subscription management
-
-### Video Management
-- Drag & drop video upload
-- Video categorization and search
-- Responsive video player
-- Progress tracking
-
-### Workout Plans
-- Custom plan creation for coaches
-- Plan browsing and purchase for clients
-- Progress tracking
-- Difficulty levels and categorization
-
-## Deployment
-
-### Build for Production
 ```bash
-npm run build
+git clone <your-repo-url>
+cd fitness-coaching-platform
+npm install
+cd backend && npm install && cd ..
 ```
 
-### Deploy to Netlify, Vercel, or similar
-1. Build the project
-2. Upload the `dist` folder to your hosting service
-3. Configure environment variables for production
+### 2. Environment Setup
 
-### Environment Variables
-Create a `.env` file for production:
-```
-VITE_API_URL=your-backend-api-url
-VITE_MPESA_API_KEY=your-mpesa-api-key
+**Frontend (.env):**
+```env
+VITE_API_URL=http://localhost:3000
+VITE_APP_NAME=FitCoach Pro
 ```
 
-## Backend Integration
+**Backend (backend/.env):**
+```env
+MPESA_CONSUMER_KEY=your_consumer_key
+MPESA_CONSUMER_SECRET=your_consumer_secret
+MPESA_BUSINESS_SHORTCODE=174379
+MPESA_PASSKEY=your_passkey
+MPESA_CALLBACK_URL=https://your-domain.com/api/mpesa/callback
+MPESA_ENVIRONMENT=sandbox
+PORT=3000
+```
 
-This frontend is ready for backend integration. You'll need to implement:
+### 3. Start Development
 
-1. **Authentication API**
-   - POST `/auth/login`
-   - POST `/auth/register`
-   - GET `/auth/me`
+**Option 1: Start both frontend and backend together**
+```bash
+npm run start:full
+```
 
-2. **User Management**
-   - GET `/users/profile`
-   - PUT `/users/profile`
+**Option 2: Start separately**
+```bash
+# Terminal 1 - Backend
+npm run backend
 
-3. **Workout Plans**
-   - GET `/workout-plans`
-   - POST `/workout-plans`
-   - PUT `/workout-plans/:id`
+# Terminal 2 - Frontend
+npm run dev
+```
 
-4. **Video Management**
-   - POST `/videos/upload`
-   - GET `/videos`
-   - DELETE `/videos/:id`
+### 4. Access the Application
 
-5. **Payment Processing**
-   - POST `/payments/mpesa`
-   - GET `/payments/status/:id`
+- **Frontend:** http://localhost:5173
+- **Backend API:** http://localhost:3000
+- **API Health Check:** http://localhost:3000/health
 
-## M-Pesa Integration
+## 🔐 Demo Credentials
 
-To integrate M-Pesa payments:
+- **Client Account:** `client@demo.com` / `password`
+- **Coach Account:** `coach@fitcoach.com` / `password`
 
-1. Register with Safaricom for M-Pesa API access
-2. Obtain API credentials
-3. Implement backend M-Pesa STK Push
-4. Handle payment callbacks
-5. Update subscription status
+## 💳 M-Pesa Integration
 
-## Contributing
+### Setup M-Pesa API
+
+1. **Get Credentials:**
+   - Visit [Safaricom Developer Portal](https://developer.safaricom.co.ke/)
+   - Create an app and get Consumer Key/Secret
+   - Get Business Shortcode and Passkey
+
+2. **Configure Callback URL:**
+   - For local development: Use ngrok to expose localhost
+   - For production: Use your domain with HTTPS
+
+3. **Test Payments:**
+   - Sandbox test numbers: `254708374149`, `254711111111`
+   - Use small amounts (KSh 1-10) for testing
+
+### Payment Flow
+
+1. User selects a plan and enters phone number
+2. Frontend calls backend to initiate STK Push
+3. Backend sends request to M-Pesa API
+4. User receives M-Pesa prompt on phone
+5. User enters PIN to authorize payment
+6. M-Pesa sends callback to backend webhook
+7. Backend updates payment status
+8. Frontend shows success/failure message
+
+## 🏗️ Project Structure
+
+```
+fitness-coaching-platform/
+├── src/                          # Frontend React app
+│   ├── components/              # Reusable UI components
+│   ├── pages/                   # Page components
+│   ├── services/               # API services
+│   ├── contexts/               # React contexts
+│   └── App.tsx                 # Main app component
+├── backend/                     # Node.js API server
+│   ├── server.js               # Express server
+│   ├── package.json            # Backend dependencies
+│   └── .env.example            # Environment template
+├── public/                      # Static assets
+└── package.json                # Frontend dependencies
+```
+
+## 🔧 API Endpoints
+
+### Authentication
+- `POST /auth/login` - User login
+- `POST /auth/register` - User registration
+- `GET /auth/me` - Get current user
+
+### Payments
+- `POST /api/mpesa/initiate` - Initiate M-Pesa payment
+- `GET /api/mpesa/status/:id` - Check payment status
+- `POST /api/mpesa/callback` - M-Pesa webhook (internal)
+
+### Content
+- `GET /api/videos` - Get video library
+- `POST /api/videos/upload` - Upload video (coaches)
+- `GET /api/workout-plans` - Get workout plans
+- `POST /api/workout-plans` - Create workout plan (coaches)
+
+## 🚀 Deployment
+
+### Frontend (Netlify/Vercel)
+
+1. **Build the project:**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy dist folder** to your hosting service
+
+3. **Set environment variables:**
+   ```
+   VITE_API_URL=https://your-api-domain.com
+   ```
+
+### Backend (Railway/Heroku/DigitalOcean)
+
+1. **Prepare for deployment:**
+   ```bash
+   cd backend
+   npm install --production
+   ```
+
+2. **Set environment variables** on your hosting platform
+
+3. **Deploy** using your platform's deployment method
+
+### Using Docker
+
+**Frontend Dockerfile:**
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+FROM nginx:alpine
+COPY --from=0 /app/dist /usr/share/nginx/html
+```
+
+**Backend Dockerfile:**
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY backend/package*.json ./
+RUN npm ci --only=production
+COPY backend/ .
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+## 🔒 Security Features
+
+- **JWT Authentication** - Secure user sessions
+- **Input Validation** - Sanitized user inputs
+- **CORS Protection** - Configured cross-origin requests
+- **SSL/HTTPS** - Encrypted data transmission
+- **Payment Security** - PCI compliant M-Pesa integration
+- **Rate Limiting** - API abuse prevention
+
+## 📱 Mobile Optimization
+
+- **Responsive Design** - Works on all screen sizes
+- **Touch Friendly** - Optimized for mobile interactions
+- **Fast Loading** - Optimized images and code splitting
+- **Offline Support** - Service worker for basic offline functionality
+
+## 🧪 Testing
+
+**Frontend Tests:**
+```bash
+npm run test
+```
+
+**Backend Tests:**
+```bash
+cd backend && npm test
+```
+
+**M-Pesa Integration Test:**
+```bash
+curl -X POST http://localhost:3000/api/mpesa/initiate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phoneNumber": "254708374149",
+    "amount": 1,
+    "accountReference": "TEST_12345"
+  }'
+```
+
+## 📊 Monitoring & Analytics
+
+- **Payment Tracking** - Success/failure rates
+- **User Analytics** - Registration and engagement metrics
+- **Performance Monitoring** - API response times
+- **Error Logging** - Comprehensive error tracking
+
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -177,22 +261,23 @@ To integrate M-Pesa payments:
 4. Test thoroughly
 5. Submit a pull request
 
-## License
+## 📞 Support
 
-This project is licensed under the MIT License.
+- **Email:** support@fitcoachpro.com
+- **Phone:** +254 712 345 678
+- **Documentation:** [API Docs](https://api.fitcoachpro.com/docs)
 
-## Support
+## 📄 License
 
-For support and questions:
-- Email: support@fitcoachpro.com
-- Phone: +254 712 345 678
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Future Enhancements
+## 🙏 Acknowledgments
 
-- [ ] Real-time chat between coaches and clients
-- [ ] Nutrition tracking and meal planning
-- [ ] Wearable device integration
-- [ ] Advanced analytics and reporting
-- [ ] Mobile app development
-- [ ] Multi-language support
-- [ ] Social features and community
+- **Safaricom** for M-Pesa API
+- **React Team** for the amazing framework
+- **Tailwind CSS** for beautiful styling
+- **Lucide** for the icon library
+
+---
+
+**Built with ❤️ for the Kenyan fitness community**
