@@ -11,6 +11,7 @@ import { VideoLibraryPage } from './pages/VideoLibraryPage';
 import { PaymentPage } from './pages/PaymentPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { CoachDashboard } from './pages/CoachDashboard';
+import { ProgressTrackingPage } from './pages/ProgressTrackingPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LoadingSpinner } from './components/LoadingSpinner';
 
@@ -54,6 +55,10 @@ function AppContent() {
           <Route 
             path="/profile" 
             element={user ? <ProfilePage /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/progress" 
+            element={user ? <ProgressTrackingPage /> : <Navigate to="/login" />} 
           />
         </Routes>
       </main>

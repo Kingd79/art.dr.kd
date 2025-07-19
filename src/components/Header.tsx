@@ -19,6 +19,7 @@ export function Header() {
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Workout Plans', href: '/workout-plans' },
     { name: 'Video Library', href: '/videos' },
+    { name: 'Progress Tracking', href: '/progress' },
     { name: 'Payment', href: '/payment' },
   ] : [
     { name: 'Home', href: '/' },
